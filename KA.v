@@ -27,7 +27,6 @@ Class KleeneAlgebra (A : Type) := {
     unroll_l : forall {p : A}, 1 + p ** p ^* = p ^*;
 
     (* leq : forall {p q : A}, (p + q = q) -> Prop where "p <= q" := (leq p q);
-    leq_star_r : forall {p : A}, (1 + p ** (p ^*)) <= (p ^*); *)
+    (* leq_star_r : forall {p : A}, (1 + p ** (p ^*)) <= (p ^ *)
     
 }.
-
