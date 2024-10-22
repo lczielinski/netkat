@@ -1,32 +1,49 @@
-Reserved Notation "a + b" (at level 50, left associativity).
-Reserved Notation "a ** b" (at level 25, left associativity).
-Reserved Notation "a ^*" (at level 5, left associativity).
-(* Reserved Notation "a <= b" (at level 79, left associativity). *)
+Reserved Notation "p + q" (at level 50, left associativity).
+Reserved Notation "p ** q" (at level 25, left associativity).
+Reserved Notation "p ^*" (at level 5, left associativity).
+Reserved Notation "p <= q" (at level 70).
+
+Definition relation (A : Type) := A -> A -> Prop.
+
+Definition reflexive {A : Type} (R : relation A) := 
+    forall a : A, R a a.
+Definition transitive {A : Type} (R : relation A) :=
+    forall a b c : A, (R a b) -> (R b c) -> (R a c).
+Definition antisymmetric {A : Type} (R : relation A) :=
+    forall a b : A, (R a b) -> (R b a) -> a = b.
+
+Definition order {A : Type} (R : relation A) :=
+  (reflexive R) /\ (antisymmetric R) /\ (transitive R).
 
 Class KleeneAlgebra (A : Type) := {
     one : A where "1" := one;
     zero : A where "0" := zero;
-    plus : A -> A -> A where "a + b" := (plus a b);
-    times : A -> A -> A where "a ** b" := (times a b);
-    star : A -> A where "a ^*" := (star a);
+    plus : A -> A -> A where "p + q" := (plus p q);
+    times : A -> A -> A where "p ** q" := (times p q);
+    star : A -> A where "p ^*" := (star p);
 
-    plus_assoc : forall {p q r : A}, p + (q + r) = (p + q) + r;
-    plus_comm : forall {a b : A}, a + b = b + a;
-    plus_zero : forall {a : A}, a + 0 = a;
-    plus_idem : forall {a : A}, a + a = a;
+    plus_assoc {p q r : A} : p + (q + r) = (p + q) + r;
+    plus_comm {p q : A} : p + q = q + p;
+    plus_zero {p : A} : p + 0 = p;
+    plus_idem {p : A} : p + p = p;
     
-    seq_assoc : forall {p q r : A}, p ** (q ** r) = (p ** q) ** r;
-    one_seq : forall {p : A}, 1 ** p = p;
-    seq_one : forall {p : A}, p ** 1 = 1;
+    seq_assoc {p q r : A} : p ** (q ** r) = (p ** q) ** r;
+    one_seq {p : A} : 1 ** p = p;
+    seq_one {p : A} : p ** 1 = 1;
 
-    seq_dist_l : forall {p q r : A}, p ** (q + r) = p ** q + p ** r;
-    seq_dist_r : forall {p q r : A}, (p ** q) + r = p ** q + p ** r;
+    seq_dist_l {p q r : A} : p ** (q + r) = p ** q + p ** r;
+    seq_dist_r {p q r : A} : (p ** q) + r = p ** q + p ** r;
 
-    zero_seq : forall {p : A}, 0 ** p = 0;
-    seq_zero : forall {p : A}, p ** 0 = 0;
-    unroll_l : forall {p : A}, 1 + p ** p ^* = p ^*;
+    zero_seq {p : A} : 0 ** p = 0;
+    seq_zero {p : A} : p ** 0 = 0;
+    unroll_l {p : A} : 1 + p ** p ^* = p ^*;
 
-    (* leq : forall {p q : A}, (p + q = q) -> Prop where "p <= q" := (leq p q);
-    (* leq_star_r : forall {p : A}, (1 + p ** (p ^*)) <= (p ^ *)
-    
+    leq : relation A where "p <= q" := (leq p q);
+    leq_order : order leq;
+    leq_ordering {p q : A} : p <= q <-> p + q = q;
+
+    leq_one_star_r {p : A} : 1 + p ** (p ^*) <= p ^*;
+    leq_one_star_l {p : A} : 1 + (p ^*) ** p <= p ^*;
+    leq_star_r {p q : A} : p ** q <= q -> (p ^*) ** q <= q;
+    leq_star_l {p q : A} : q ** p <= q -> q ** (p ^*) <= q;
 }.
