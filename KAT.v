@@ -15,9 +15,17 @@ Class KAT (A : Type) `{KA : KleeneAlgebra A} := {
 
 Notation "! a" := (neg a).
 
-Lemma dexter {A : Type} {ka : KleeneAlgebra A} {kat : KAT A} : 
+Lemma neg_involutive {A : Type} {ka : KleeneAlgebra A} {kat : KAT A} : 
+  forall (a : A), (! (! a)) = a.
+Proof.
+  intros. 
+  unfold neg.
+  
+    
+
+(* Lemma dexter {A : Type} {ka : KleeneAlgebra A} {kat : KAT A} : 
   forall (b p c : A),
   b ** p = p ** c -> (! b) ** p = p ** (! c).
 Proof.
-  intros.
+  intros. *)
 
