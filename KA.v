@@ -37,13 +37,12 @@ Class KleeneAlgebra (A : Type) := {
     zero_seq {p : A} : 0 ** p = 0;
     seq_zero {p : A} : p ** 0 = 0;
     unroll_l {p : A} : 1 + p ** p ^* = p ^*;
+    unroll_r {p : A} : 1 + (p ^*) ** p = p ^*;
 
     leq : relation A where "p <= q" := (leq p q);
     leq_order : order leq;
     leq_ordering {p q : A} : p <= q <-> p + q = q;
 
-    leq_one_star_r {p : A} : 1 + p ** (p ^*) <= p ^*;
-    leq_one_star_l {p : A} : 1 + (p ^*) ** p <= p ^*;
-    leq_star_r {p q : A} : p ** q <= q -> (p ^*) ** q <= q;
-    leq_star_l {p q : A} : q ** p <= q -> q ** (p ^*) <= q;
+    lfp_l {p q r : A} : q + p ** r <= r -> p ^* ** q <= r;
+    lfp_r {p q r : A} : p + q ** r <= q -> p ** r ^* <= q;
 }.
