@@ -13,3 +13,11 @@ Class KAT (A : Type) `{KA : KleeneAlgebra A} := {
   seq_idem {a : A} : a ** a = a;
 }.
 
+Notation "! a" := (neg a).
+
+Lemma dexter {A : Type} {ka : KleeneAlgebra A} {kat : KAT A} : 
+  forall (b p c : A),
+  b ** p = p ** c -> (! b) ** p = p ** (! c).
+Proof.
+  intros.
+
