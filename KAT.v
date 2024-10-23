@@ -15,17 +15,23 @@ Class KAT (A : Type) `{KA : KleeneAlgebra A} := {
 
 Notation "! a" := (neg a).
 
+Lemma cancellation {A : Type} {ka : KleeneAlgebra A} {kat : KAT A} :
+  forall (a b c : A), a ** c = b ** c -> a = b.
+Proof. Admitted. (* lol not true *)
+
 Lemma neg_involutive {A : Type} {ka : KleeneAlgebra A} {kat : KAT A} : 
   forall (a : A), (! (! a)) = a.
 Proof.
   intros. 
-  unfold neg.
+  apply cancellation with (c := (! a)).
+  rewrite seq_comm.
+  rewrite 2 contra. 
+  reflexivity.
+Qed.
   
-    
-
-(* Lemma dexter {A : Type} {ka : KleeneAlgebra A} {kat : KAT A} : 
+Lemma dexter {A : Type} {ka : KleeneAlgebra A} {kat : KAT A} : 
   forall (b p c : A),
   b ** p = p ** c -> (! b) ** p = p ** (! c).
 Proof.
-  intros. *)
-
+  intros.
+Admitted.

@@ -29,7 +29,7 @@ Class KleeneAlgebra (A : Type) := {
     
     seq_assoc {p q r : A} : p ** (q ** r) = (p ** q) ** r;
     one_seq {p : A} : 1 ** p = p;
-    seq_one {p : A} : p ** 1 = 1;
+    seq_one {p : A} : p ** 1 = p;
 
     seq_dist_l {p q r : A} : p ** (q + r) = p ** q + p ** r;
     seq_dist_r {p q r : A} : (p ** q) + r = p ** q + p ** r;
