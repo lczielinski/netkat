@@ -46,3 +46,9 @@ Class KleeneAlgebra (A : Type) := {
     lfp_l {p q r : A} : q + p ** r <= r -> p ^* ** q <= r;
     lfp_r {p q r : A} : p + q ** r <= q -> p ** r ^* <= q;
 }.
+
+Notation "p + q" := (plus p q).
+Notation "p ** q" := (times p q).
+Notation "p ^*" := (star p).
+Notation "1" := one.
+Notation "0" := zero.
