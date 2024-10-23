@@ -33,5 +33,5 @@ Lemma dexter {A : Type} {ka : KleeneAlgebra A} {kat : KAT A} :
   forall (b p c : A),
   b ** p = p ** c -> (! b) ** p = p ** (! c).
 Proof.
-  intros.
+  intros. 
 Admitted.
